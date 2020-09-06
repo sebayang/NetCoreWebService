@@ -186,7 +186,7 @@ namespace WebCore.Controllers
         }
 
         [HttpPost]
-        [Route("Register")]
+        [Route("register")]
         public IActionResult Register(UserVM userVM)
         {
             if (ModelState.IsValid)
@@ -197,6 +197,18 @@ namespace WebCore.Controllers
             return BadRequest(500);
         }
 
-         
+        [HttpPost]
+        [Route("verifycode")]
+        public IActionResult Verify(UserVM user)
+        {
+            if (ModelState.IsValid)
+            {
+                var getId = _context.Users.Where(u => u.NormalizedEmail == user.code).SingleOrDefault();
+                getId.NormalizedEmail = null;
+                _context.SaveChanges();
+                return StatusCode(200);
+            }
+            return BadRequest(500);
+        }
     }
 }

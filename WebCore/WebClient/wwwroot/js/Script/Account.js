@@ -13,7 +13,10 @@
         debugger;
 		if (result.status === true) {
 			window.location.href = "/home";
-        } else {            
+        } else if (result.status === "everif") {
+            window.location.href = "/everif";
+        }
+        else {            
 			$.notify({ 
                 icon: 'fas fa-alarm-clock',
 				title: 'Notification',
@@ -64,8 +67,8 @@ function Register() {
             dataType: "JSON",
             data: auth
         }).then((result) => {
-            //debugger;
-            if (result.status === true) { 
+            debugger;
+            if (result.status === "everif") { 
                 window.location.href = "/everif";
             } else {
                 $.notify({
@@ -143,10 +146,10 @@ function everif() {
     var code = $('#Code').val(); 
     $.ajax({
         type: 'POST',
-        url: "/everif/",
+        url: "/verifemail/",
         cache: false,
         dataType: "JSON",
-        data: code
+        data: { code : code }
     }).then((result) => {
         debugger;
         if (result.status === true) {

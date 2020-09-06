@@ -5,6 +5,9 @@ C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\bin\Debug\n
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\bin\Debug\netcoreapp2.1\WebClient.pdb
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\bin\Debug\netcoreapp2.1\WebClient.Views.dll
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\bin\Debug\netcoreapp2.1\WebClient.Views.pdb
+C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\bin\Debug\netcoreapp2.1\WebCore.dll
+C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\bin\Debug\netcoreapp2.1\WebCore.pdb
+C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.csprojAssemblyReference.cache
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.csproj.CoreCompileInputs.cache
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.RazorAssemblyInfo.cache
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.RazorAssemblyInfo.cs
@@ -13,7 +16,9 @@ C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\n
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.TagHelpers.input.cache
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.TagHelpers.output.cache
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.RazorCoreGenerate.cache
+C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Account\emailVerification.g.cshtml.cs
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Account\Index.g.cshtml.cs
+C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Account\Register.g.cshtml.cs
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
@@ -25,11 +30,6 @@ C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\n
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.RazorTargetAssemblyInfo.cache
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.RazorTargetAssemblyInfo.cs
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.Views.pdb
+C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.csproj.CopyComplete
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.dll
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.pdb
-C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.csproj.CopyComplete
-C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\bin\Debug\netcoreapp2.1\WebCore.dll
-C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\bin\Debug\netcoreapp2.1\WebCore.pdb
-C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\WebClient.csprojAssemblyReference.cache
-C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Account\Register.g.cshtml.cs
-C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebClient\obj\Debug\netcoreapp2.1\Razor\Views\Account\emailVerification.g.cshtml.cs

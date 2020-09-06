@@ -72,7 +72,7 @@ namespace Web.Controllers
                             HttpContext.Session.SetString("everif", account.code);
                             if (HttpContext.Session.GetString("lvl") == "Sales")
                             {
-                                return Redirect("/everif");
+                                return Json(new { status = "everif", msg = "param1", acc = "Sales" });
                             }
                             else
                             {
@@ -103,21 +103,10 @@ namespace Web.Controllers
                 byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 var result = client.PostAsync("user/register/", byteContent).Result;
                 if (result.IsSuccessStatusCode)
-                { 
-                    var buffer1 = System.Text.Encoding.UTF8.GetBytes(json);
-                    var byteContent1 = new ByteArrayContent(buffer1);
-                    byteContent1.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                    var resTask = client.PostAsync("user/login/", byteContent1);
-                    resTask.Wait();
-                    var result1 = resTask.Result;
-                    var data = result.Content.ReadAsStringAsync().Result;
-                    var json1 = JsonConvert.DeserializeObject(data).ToString();
-                    var account = JsonConvert.DeserializeObject<UserVM>(json1);
-                    HttpContext.Session.SetString("uname", account.UserName);
-                    HttpContext.Session.SetString("email", account.Email);
-                    HttpContext.Session.SetString("lvl", account.RoleName);
-                    HttpContext.Session.SetString("everif", account.code);
-                    return Json(new { status = true, code = result, msg = "Register Success! " });
+                {
+                    userVM.UserName = null;
+                    Validate(userVM);
+                    return Json(new { status = "everif", msg = "Account has been created please login!", acc = "Sales" });
                 }
                 else
                 {
@@ -144,9 +133,24 @@ namespace Web.Controllers
         [Route("verifemail")]
         public IActionResult verifemail(string code)
         {
-            if (HttpContext.Session.GetString("code") == code)
+            if (HttpContext.Session.GetString("everif") == code)
             {
-                return Redirect("/home");
+                var user = new UserVM();
+                user.code = code;
+                var json = JsonConvert.SerializeObject(user);
+                var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+                var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var result = client.PostAsync("user/verifycode/", byteContent).Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return Json(new { status = true });
+                }
+                else
+                {
+                    return Json(new { status = false });
+                }
+                
             }
             return Redirect("/everif");
         }
