@@ -19,6 +19,71 @@ namespace WebCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WebCore.Models.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreateTime");
+
+                    b.Property<DateTimeOffset>("DeleteTime");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTimeOffset>("UpdateTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tb_m_department");
+                });
+
+            modelBuilder.Entity("WebCore.Models.Division", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreateTime");
+
+                    b.Property<DateTimeOffset>("DeleteTime");
+
+                    b.Property<int>("DepartmentId");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTimeOffset>("UpdateTime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("tb_m_division");
+                });
+
+            modelBuilder.Entity("WebCore.Models.Employee", b =>
+                {
+                    b.Property<string>("EmpId");
+
+                    b.Property<string>("Address");
+
+                    b.Property<DateTimeOffset>("CreateTime");
+
+                    b.Property<DateTimeOffset>("DeleteTime");
+
+                    b.Property<bool>("IsDelete");
+
+                    b.Property<DateTimeOffset>("UpdateTime");
+
+                    b.HasKey("EmpId");
+
+                    b.ToTable("Employee");
+                });
+
             modelBuilder.Entity("WebCore.Models.Role", b =>
                 {
                     b.Property<string>("Id")
@@ -90,6 +155,22 @@ namespace WebCore.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TB_M_RoleUser");
+                });
+
+            modelBuilder.Entity("WebCore.Models.Division", b =>
+                {
+                    b.HasOne("WebCore.Models.Department", "department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WebCore.Models.Employee", b =>
+                {
+                    b.HasOne("WebCore.Models.User", "User")
+                        .WithOne("Employee")
+                        .HasForeignKey("WebCore.Models.Employee", "EmpId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("WebCore.Models.UserRole", b =>

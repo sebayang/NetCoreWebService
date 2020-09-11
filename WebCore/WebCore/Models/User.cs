@@ -10,5 +10,6 @@ namespace WebCore.Models
     [Table("TB_M_User")]
     public class User : IdentityUser
     {
+        public Employee Employee { get; set; }
     }
 }

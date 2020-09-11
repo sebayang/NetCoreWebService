@@ -1,7 +1,45 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<center>
-    <h1> HELLO MATE!!!!! </hi>
-</center>
- 
+  
+<div class="row">
+
+    <!-- Donut Chart -->
+    <div class="col-lg-6">
+        <div class="card ">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header ">
+                <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="amChart" id="pieChart"></div> 
+            </div>
+        </div>
+    </div>
+
+    <!-- donut chart -->
+        <div class="col-lg-6">
+            <div class="card ">
+                <!-- card header - dropdown -->
+                <div class="card-header ">
+                    <h6 class="m-0 font-weight-bold text-primary">bar chart</h6>
+                </div>
+                <!-- card body -->
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <div class="amChart" id="barchart"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+
+
+</div>
+
+
+@section script{
+    <script src="~/js/Script/Chart.js"></script>
+}
+

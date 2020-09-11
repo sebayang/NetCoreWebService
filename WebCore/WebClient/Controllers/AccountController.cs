@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using WebCore.ViewModels;
 
@@ -44,39 +48,47 @@ namespace Web.Controllers
                 if (result.IsSuccessStatusCode)
                 {
                     var data = result.Content.ReadAsStringAsync().Result;
+                    var token = "Bearer " + data;
+                    var info = DecodeToken(data);
                     if (data != "")
                     {
-                        var json = JsonConvert.DeserializeObject(data).ToString();
-                        var account = JsonConvert.DeserializeObject<UserVM>(json);
-                        if (BCrypt.Net.BCrypt.Verify(userVM.Password, account.Password) && (account.RoleName == "Admin" || account.RoleName == "Sales") && account.code == null)
+                        //var json = JsonConvert.DeserializeObject(data).ToString();
+                        //var account = JsonConvert.DeserializeObject<UserVM>(json);
+
+
+
+                        if (BCrypt.Net.BCrypt.Verify(userVM.Password, info[2]) && (info[3] == "Admin" || info[3] == "Sales") && info[4] == "false")
                         {
-                            HttpContext.Session.SetString("uname", account.UserName);
-                            HttpContext.Session.SetString("email", account.Email);
-                            HttpContext.Session.SetString("lvl", account.RoleName);
+                            HttpContext.Session.SetString("uname", info[0]);
+                            HttpContext.Session.SetString("email", info[1]);
+                            HttpContext.Session.SetString("lvl", info[3]);
+                            HttpContext.Session.SetString("token", token);
                             //HttpContext.Session.SetString("everif", account.code);
+
                             if (HttpContext.Session.GetString("lvl") == "Sales")
                             {
 
-                                return Json(new { status = true, msg = "Login Successfully !", acc = "Admin" });
+                                return Json(new { status = true, msg = "Login Successfully !" });
                             }
                             else
                             {
-                                return Json(new { status = true, msg = "Login Successfully !", acc = "Sales" });
+                                return Json(new { status = true, msg = "Login Successfully !" });
                             }
                         }
-                        else if (BCrypt.Net.BCrypt.Verify(userVM.Password, account.Password) && (account.RoleName == "Admin" || account.RoleName == "Sales") && account.code != null)
+                        else if (BCrypt.Net.BCrypt.Verify(userVM.Password, info[2]) && (info[3] == "Admin" || info[3] == "Sales") && info[0] != "false")
                         {
-                            HttpContext.Session.SetString("uname", account.UserName);
-                            HttpContext.Session.SetString("email", account.Email);
-                            HttpContext.Session.SetString("lvl", account.RoleName);
-                            HttpContext.Session.SetString("everif", account.code);
+                            HttpContext.Session.SetString("uname", info[0]);
+                            HttpContext.Session.SetString("email", info[1]);
+                            HttpContext.Session.SetString("lvl", info[3]);
+                            HttpContext.Session.SetString("everif", info[4]);
+                            HttpContext.Session.SetString("token", token);
                             if (HttpContext.Session.GetString("lvl") == "Sales")
                             {
-                                return Json(new { status = "everif", msg = "param1", acc = "Sales" });
+                                return Json(new { status = "everif", msg = "param1" });
                             }
                             else
                             {
-                                return Json(new { status = true, msg = "Login Successfully !", acc = "Sales" });
+                                return Json(new { status = true, msg = "Login Successfully !" });
                             }
                         }
                         else
@@ -106,7 +118,7 @@ namespace Web.Controllers
                 {
                     userVM.UserName = null;
                     Validate(userVM);
-                    return Json(new { status = "everif", msg = "Account has been created please login!", acc = "Sales" });
+                    return Json(new { status = "everif", msg = "Account has been created please login!" });
                 }
                 else
                 {
@@ -150,9 +162,33 @@ namespace Web.Controllers
                 {
                     return Json(new { status = false });
                 }
-                
+
             }
             return Redirect("/everif");
+        }
+
+        protected List<string> DecodeToken(string token)
+        {
+            List<string> result = new List<string>();
+            string rawKey = "febrioibrahimsebayang";
+            var key = Encoding.ASCII.GetBytes(rawKey);
+            var handler = new JwtSecurityTokenHandler();
+            var validation = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+
+            var claims = handler.ValidateToken(token, validation, out var tokenSecure);
+            IEnumerable<Claim> data = claims.Claims;
+            result.Add(data.SingleOrDefault(p => p.Type == "Username").Value);
+            result.Add(data.SingleOrDefault(p => p.Type == "Email").Value);
+            result.Add(data.SingleOrDefault(p => p.Type == "Password").Value);
+            result.Add(data.SingleOrDefault(p => p.Type == "RoleName").Value);
+            result.Add(data.SingleOrDefault(p => p.Type == "code").Value);
+            return result;
         }
     }
 }
