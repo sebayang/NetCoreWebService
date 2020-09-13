@@ -32,7 +32,7 @@ namespace Web.Controllers
         public IActionResult Register()
         {
             return View();
-        }
+        } 
         [Route("validate")]
         public IActionResult Validate(UserVM userVM)
         {
@@ -59,6 +59,7 @@ namespace Web.Controllers
 
                         if (BCrypt.Net.BCrypt.Verify(userVM.Password, info[2]) && (info[3] == "Admin" || info[3] == "Sales") && info[4] == "false")
                         {
+                            HttpContext.Session.SetString("id", info[5]);
                             HttpContext.Session.SetString("uname", info[0]);
                             HttpContext.Session.SetString("email", info[1]);
                             HttpContext.Session.SetString("lvl", info[3]);
@@ -76,7 +77,8 @@ namespace Web.Controllers
                             }
                         }
                         else if (BCrypt.Net.BCrypt.Verify(userVM.Password, info[2]) && (info[3] == "Admin" || info[3] == "Sales") && info[0] != "false")
-                        {
+                        { 
+                            HttpContext.Session.SetString("id", info[5]);
                             HttpContext.Session.SetString("uname", info[0]);
                             HttpContext.Session.SetString("email", info[1]);
                             HttpContext.Session.SetString("lvl", info[3]);
@@ -188,7 +190,30 @@ namespace Web.Controllers
             result.Add(data.SingleOrDefault(p => p.Type == "Password").Value);
             result.Add(data.SingleOrDefault(p => p.Type == "RoleName").Value);
             result.Add(data.SingleOrDefault(p => p.Type == "code").Value);
+            result.Add(data.SingleOrDefault(p => p.Type == "Id").Value);
             return result;
         }
+
+        public ActionResult GetUser()
+        {
+            var id = HttpContext.Session.GetString("id");
+            DetailsVM detail = null; 
+
+            var resTask = client.GetAsync("User/Details/" + id);
+            resTask.Wait();
+
+            var result = resTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<DetailsVM>();
+                readTask.Wait();
+
+                detail = readTask.Result;
+            }
+            var response = Tuple.Create(detail, result);
+
+            return Json(response, new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
     }
 }

@@ -4,18 +4,19 @@
 
 function loadData() {
     $.ajax({
-        url: "/UserProfile/GetUser",
+        url: "/Account/GetUser",
         data: "",
         cache: false,
         type: "GET",
         dataType: "JSON"
-    }).then((result) => {
-        if (result.Item2.StatusCode == 200) {
-            // var RoleString = result.Item1.RoleName.Join();
-            $('#Id').html(result.Item1.Id);
-            $('#Email').html(result.Item1.Email);
-            $('#UserName').html(result.Item1.UserName);
-            $('#RoleName').html(result.Item1.RoleName.toString());
-        }
+    }).then((result) => {  
+        debugger;
+        $('#Email').html(result.Item1.Email);
+        $('#Create').html(result.Item1.CreateTime);
+        $('#Update').html(result.Item1.UpdateTime);
+        $('#Name').html(result.Item1.Username);
+        $('#Address').html(result.Item1.Address);
+        $('#Role').html(result.Item1.RoleName);
+        $('#Phone').html(result.Item1.Phone);
     });
 }

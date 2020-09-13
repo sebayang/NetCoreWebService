@@ -200,7 +200,8 @@ namespace WebCore.Controllers
                 var cek = BCrypt.Net.BCrypt.Verify(userVM.Password , user1.PasswordHash);
                 if (cek)
                 {
-                    var user = new UserVM(); 
+                    var user = new UserVM();
+                    user.Id = getUserRole.User.Id;
                     user.UserName = getUserRole.User.UserName;
                     user.Email = getUserRole.User.Email;
                     user.Password = getUserRole.User.PasswordHash; 
@@ -212,12 +213,13 @@ namespace WebCore.Controllers
                     }
                     if (user != null)
                     {
-                        var claims = new List<Claim> { 
+                        var claims = new List<Claim> {
                             new Claim("Username", user.UserName),
                             new Claim("Password", user.Password),
                             new Claim("Email", user.Email),
                             new Claim("RoleName", user.RoleName),
-                            new Claim("code", user.code) 
+                            new Claim("code", user.code),
+                            new Claim("Id", user.Id) 
                         };
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
@@ -261,6 +263,27 @@ namespace WebCore.Controllers
                 return StatusCode(200);
             }
             return BadRequest(500);
+        }
+
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet]
+        [Route("Details/{id}")]
+        public async Task<ActionResult> GetUserById(string id)
+        {
+            var detail = await _context.UserRoles.Include("User").Include("Role").Where(u => u.User.Id == id).SingleOrDefaultAsync();
+            var getData = _context.Employees.Include("User").SingleOrDefault(x => x.EmpId == id);
+            DetailsVM details = new DetailsVM()
+            {
+                Id = id,
+                Email = detail.User.Email,
+                Username = detail.User.UserName,
+                RoleName = detail.Role.Name,
+                Phone = detail.User.PhoneNumber,
+                Address = getData.Address,
+                CreateTime = getData.CreateTime,
+                UpdateTime = getData.UpdateTime 
+            };
+            return Ok(details);
         }
     }
 }

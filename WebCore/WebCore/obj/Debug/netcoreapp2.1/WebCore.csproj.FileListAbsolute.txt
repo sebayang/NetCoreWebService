@@ -11,4 +11,3 @@ C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebCore\obj\Debug\net
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebCore\obj\Debug\netcoreapp2.1\WebCore.RazorTargetAssemblyInfo.cache
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebCore\obj\Debug\netcoreapp2.1\WebCore.dll
 C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebCore\obj\Debug\netcoreapp2.1\WebCore.pdb
-C:\Users\Gin\Documents\Visual Studio 2017\Projects\WebCore\WebCore\obj\Debug\netcoreapp2.1\WebCore.csprojAssemblyReference.cache
